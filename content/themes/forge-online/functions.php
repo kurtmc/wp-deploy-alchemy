@@ -97,7 +97,7 @@ function fo_ajax_get_product_item() {
 									<div class="right-col">
 										<div class="right-col-wrapper">';
 											$server_folder_path = $_SERVER['DOCUMENT_ROOT'];
-											$website_folder_path = '/wp-content/uploads/pdf_folders/';
+											$website_folder_path = '/content/uploads/pdf_folders/';
 											$product_folder_path = $product->directory;
 											$product_files = scandir( $server_folder_path . $website_folder_path . $product_folder_path , 1  );
 											for( $i = 0; $i < count( $product_files ); $i++ ) {
