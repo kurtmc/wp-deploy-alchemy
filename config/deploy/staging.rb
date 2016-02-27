@@ -3,7 +3,7 @@
 ############################################
 
 set :stage, :staging
-set :stage_url, "http://localhost:8080"
+set :stage_url, "http://localhost"
 server "172.17.0.2", user: "alchemy", roles: %w{web app db}
 set :deploy_to, "/var/www/html"
 
