@@ -12,7 +12,7 @@ require './lib/capistrano/submodule_strategy'
 require 'yaml'
 
 # Includes Slack integration gem
-require 'capistrano/slackify'
+#require 'capistrano/slackify'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
