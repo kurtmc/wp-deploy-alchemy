@@ -31,3 +31,8 @@ wp-config.php
 _assets
 node_modules
 ai-cache/*
+local-json/
+
+# Credentials #
+###################
+api-credentials.json
