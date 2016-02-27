@@ -3,7 +3,7 @@ jQuery( window ).load( function() {
 	function get_product_item( product_id ) {
 		jQuery( ".product-preview-content" ).html( "" );
 		jQuery( ".product-preview-content" ).addClass( "product-preview-loading" );
-		var ajaxurl = "/wp-admin/admin-ajax.php";
+		var ajaxurl = "/wordpress/wp-admin/admin-ajax.php";
 		jQuery.post(
 			ajaxurl, 
 			{
