@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 #bundle exec cap staging deploy
 def exec_shell(cmd)
-    puts cmd
-    puts `#{cmd}`
+    unless system(cmd)
+        raise "Command unsuccessful"
+    end
 end
 def server(address, *args)
     user = *args[0][:user]
