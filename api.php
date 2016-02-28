@@ -365,9 +365,12 @@ case 'update_user_data' :
           
           echo 'User NOT found:', $customer_users_json_email, PHP_EOL;
 
+
           $wordpress_new_password = $customer_users_json_password;
-          wp_create_user( $email , $email , $password );	
-          echo 'Attemp to create user.', PHP_EOL;
+          // https://developer.wordpress.org/reference/functions/wp_create_user/
+          $create_user_result = wp_create_user($email, $password, $email);	
+          echo 'Attempt to create user.', PHP_EOL;
+          echo 'Result: ', var_export($create_user_result, true), PHP_EOL;
 
         }
       }
