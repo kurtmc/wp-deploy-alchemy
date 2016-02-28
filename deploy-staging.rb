@@ -1,5 +1,12 @@
 #!/usr/bin/env ruby
-#bundle exec cap staging deploy
+
+environment = ARGV[0]
+
+unless ['staging', 'production'].include? environment
+    raise "Must specify if staging or production, e.g.\n./deploy.rb staging"
+end
+
+
 def exec_shell(cmd)
     unless system(cmd)
         raise "Command unsuccessful"
@@ -15,6 +22,6 @@ end
 def set(*args)
 end
 
-exec_shell("bundle exec cap staging deploy")
+exec_shell("bundle exec cap #{environment} deploy")
 
-require './config/deploy/staging.rb'
+require './config/deploy/#{environment}.rb'
