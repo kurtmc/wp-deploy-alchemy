@@ -341,6 +341,8 @@ case 'update_user_data' :
         $found_user = get_user_by( 'email' , $customer_users_json_email );
 
         if( $pre ) { pre( $found_user ); }
+        
+        echo 'User to search: ', $customer_users_json_email, PHP_EOL;
 
         if( $found_user ) {
 
@@ -354,12 +356,14 @@ case 'update_user_data' :
           wp_set_password( $wordpress_new_password, $wordpress_user_id );
 
           if ( is_wp_error( $success ) ) {
-            echo 'The email address', $customer_users_json_email, 'was not found in the wordpress user list.', PHP_EOL;
+            echo 'Email: ', $customer_users_json_email, ' was not found in the wordpress user list.', PHP_EOL;
           } else {
-            echo 'The email address', $customer_users_json_email, 'was found with the user id of', $wordpress_user_id, PHP_EOL;
+            echo 'Email: ', $customer_users_json_email, ' found. ID: ', $wordpress_user_id, PHP_EOL;
           }		
 
         } else  {
+          
+          echo 'User NOT found:', $customer_users_json_email, PHP_EOL;
 
           $wordpress_new_password = $customer_users_json_password;
           wp_create_user( $email , $email , $password );	
