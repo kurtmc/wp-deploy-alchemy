@@ -344,7 +344,7 @@ case 'update_user_data' :
 
         if( $found_user ) {
 
-          echo 'User found:', var_export($found_user, true), PHP_EOL;
+          echo 'User found:', $found_user->data->user_login, PHP_EOL;
 
           $wordpress_user_id = $found_user->ID;
           $wordpress_user_website = '';
