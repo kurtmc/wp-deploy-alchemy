@@ -2,6 +2,10 @@
 
 $credentials_string = file_get_contents("api-credentials.json");
 $credentials_json = json_decode($credentials_string, true);
+$document_root = shell_exec(grep -e "DocumentRoot"  /etc/apache2/sites-available/000-default.conf | awk '{ print $2 }')
+echo 'Document root:', $document_root, PHP_EOL;
+
+
 
 require_once( 'wordpress/wp-load.php' );
 
@@ -75,11 +79,11 @@ switch( $action ) {
 				if( $pre ) { pre( $ch_result_array ); }
 				
 				$api_json_content = $ch_result;
-				$save_file = fopen($_SERVER['DOCUMENT_ROOT'] . '/local-json/products.json' , 'wb' );
+				$save_file = fopen($document_root . '/local-json/products.json' , 'wb' );
 				fwrite( $save_file  ,$api_json_content );
 				fclose( $save_file );
 				
-				$save_csv_file = fopen($_SERVER['DOCUMENT_ROOT'] . '/local-json/products.csv', 'w');
+				$save_csv_file = fopen($document_root . '/local-json/products.csv', 'w');
 				foreach ($ch_result_array as $fields) {
 					fputcsv($save_csv_file, $fields);
 				}
@@ -108,11 +112,11 @@ switch( $action ) {
 				if( $pre ) { pre( $ch_result_array ); }
 				
 				$api_json_content = $ch_result;
-				$save_file = fopen($_SERVER['DOCUMENT_ROOT'] . '/local-json/vendors.json' , 'wb' );
+				$save_file = fopen($document_root . '/local-json/vendors.json' , 'wb' );
 				fwrite( $save_file  ,$api_json_content );
 				fclose( $save_file );
 				
-				$save_csv_file = fopen($_SERVER['DOCUMENT_ROOT'] . '/local-json/vendors.csv', 'w');
+				$save_csv_file = fopen($document_root . '/local-json/vendors.csv', 'w');
 				foreach ($ch_result_array as $fields) {
 					fputcsv($save_csv_file, $fields);
 				}
@@ -141,11 +145,11 @@ switch( $action ) {
 				if( $pre ) { pre( $ch_result_array ); }
 				
 				$api_json_content = $ch_result;
-				$save_file = fopen($_SERVER['DOCUMENT_ROOT'] . '/local-json/customer_users.json' , 'wb' );
+				$save_file = fopen($document_root . '/local-json/customer_users.json' , 'wb' );
 				fwrite( $save_file  ,$api_json_content );
 				fclose( $save_file );
 				
-				$save_csv_file = fopen($_SERVER['DOCUMENT_ROOT'] . '/local-json/customer_users.csv', 'w');
+				$save_csv_file = fopen($document_root . '/local-json/customer_users.csv', 'w');
 				foreach ($ch_result_array as $fields) {
 					fputcsv($save_csv_file, $fields);
 				}
@@ -163,7 +167,7 @@ switch( $action ) {
 	
 		if( in_array( $ch_url_prefix , $ch_url_prefixs ) && is_numeric( $update_index ) ) {
 			
-			$local_products_json_file = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/local-json/products.json' );
+			$local_products_json_file = file_get_contents( $document_root . '/local-json/products.json' );
 		
 			$local_products_array = json_decode( $local_products_json_file , true );
 
@@ -243,7 +247,7 @@ switch( $action ) {
 	
 		if( in_array( $ch_url_prefix , $ch_url_prefixs ) ) {
 			
-			$local_products_json_file = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/local-json/products.json' );
+			$local_products_json_file = file_get_contents( $document_root . '/local-json/products.json' );
 		
 			$total_products = count( json_decode( $local_products_json_file , true ) );
 			
@@ -308,7 +312,7 @@ switch( $action ) {
 		if( in_array( $ch_url_prefix , $ch_url_prefixs ) ) {
 			echo 'in array', PHP_EOL;
 			
-			$local_customer_users_json_file = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . 'current/local-json/customer_users.json' );
+			$local_customer_users_json_file = file_get_contents( $document_root . '/local-json/customer_users.json' );
 		
 			$local_customer_users_array = json_decode( $local_customer_users_json_file , true );
 
