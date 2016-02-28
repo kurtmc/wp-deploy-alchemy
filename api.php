@@ -344,33 +344,30 @@ case 'update_user_data' :
 
         if( $found_user ) {
 
+          echo 'User found:', var_export($found_user, true), PHP_EOL;
+
           $wordpress_user_id = $found_user->ID;
           $wordpress_user_website = '';
           $wordpress_new_password = $customer_users_json_password;
-          //$wordpress_new_password = 'secret';
           $success = wp_update_user( array( 'ID' => $wordpress_user_id, 'user_url' => $wordpress_user_website ) );
 
           wp_set_password( $wordpress_new_password, $wordpress_user_id );
-          echo 'wp_set_password ( ' . $wordpress_new_password . ' )';
 
           if ( is_wp_error( $success ) ) {
-            echo 'The email address ( ' . $customer_users_json_email . ' ) was <strong>not found</strong> in the wordpress user list.';
+            echo 'The email address', $customer_users_json_email, 'was not found in the wordpress user list.', PHP_EOL;
           } else {
-            echo 'The email address ( ' . $customer_users_json_email . ' ) was <strong>found</strong> with the user id of ( ' . $wordpress_user_id . ' )';
+            echo 'The email address', $customer_users_json_email, 'was found with the user id of', $wordpress_user_id, PHP_EOL;
           }		
 
         } else  {
 
           $wordpress_new_password = $customer_users_json_password;
-          //$wordpress_new_password = 'secret';
           wp_create_user( $email , $email , $password );	
+          echo 'Attemp to create user.', PHP_EOL;
 
         }
-
       }
-
     }
-
   }
 
   break;
