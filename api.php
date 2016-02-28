@@ -368,7 +368,7 @@ case 'update_user_data' :
 
           $wordpress_new_password = $customer_users_json_password;
           // https://developer.wordpress.org/reference/functions/wp_create_user/
-          $create_user_result = wp_create_user($email, $password, $email);	
+          $create_user_result = wp_create_user($customer_users_json_email, $customer_users_json_password, $customer_users_json_email);	
           echo 'Attempt to create user.', PHP_EOL;
           echo 'Result: ', var_export($create_user_result, true), PHP_EOL;
 
