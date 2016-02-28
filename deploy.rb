@@ -24,4 +24,4 @@ end
 
 exec_shell("bundle exec cap #{environment} deploy")
 
-require './config/deploy/#{environment}.rb'
+require "./config/deploy/#{environment}.rb"
