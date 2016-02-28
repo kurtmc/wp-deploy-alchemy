@@ -2,7 +2,7 @@
 
 $credentials_string = file_get_contents("api-credentials.json");
 $credentials_json = json_decode($credentials_string, true);
-$document_root = shell_exec("grep -e DocumentRoot  /etc/apache2/sites-available/000-default.conf | awk '{ print $2 }'")
+$document_root = shell_exec("grep -e DocumentRoot  /etc/apache2/sites-available/000-default.conf | awk '{ print $2 }'");
 echo 'Document root:', $document_root, PHP_EOL;
 
 
