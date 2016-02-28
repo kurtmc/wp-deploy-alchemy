@@ -17,6 +17,7 @@ def server(address, *args)
     user = user[0]
     exec_shell("scp api-credentials.json #{user}@#{address}:/var/www/html/current/")
     exec_shell("ssh #{user}@#{address} 'source ~/.bash_profile; cd /var/www/html/current; ./pull-json.rb'")
+    exec_shell("scp cron-jobs/* #{user}@#{address}:/etc/cron.hourly/")
 end
 
 def set(*args)

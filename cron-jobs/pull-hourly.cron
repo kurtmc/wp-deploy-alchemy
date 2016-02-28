@@ -1,0 +1,2 @@
+su - alchemy -c "cd /var/www/html/current; ./pull-json.rb"
+su - alchemy -c "cd /var/www/html/current; php api.php"
