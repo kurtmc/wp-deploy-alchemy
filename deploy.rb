@@ -21,8 +21,8 @@ def server(address, *args)
     exec_shell("scp cron-jobs/* root@#{address}:/etc/cron.hourly/")
     exec_shell("ssh root@#{address} 'chmod +x /etc/cron.hourly/*'")
     exec_shell("ssh #{user}@#{address} 'source ~/.bash_profile; cd /var/www/html/current; mkdir -p shared/db_backups; chmod 777 shared/db_backups'")
-    exec_shell("ssh #{user}@#{address} 'source ~/.bash_profile; cp /var/www/html/current/content/plugins/wp-dbmanager/htaccess.txt /var/www/html/current/.htaccess'")
-    exec_shell("ssh #{user}@#{address} 'source ~/.bash_profile; cp /var/www/html/current/content/plugins/wp-dbmanager/index.php /var/www/html/current/index.php'")
+    exec_shell("ssh #{user}@#{address} 'source ~/.bash_profile; cp /var/www/html/current/content/plugins/wp-dbmanager/htaccess.txt /var/www/html/current/shared/db_backups/.htaccess'")
+    exec_shell("ssh #{user}@#{address} 'source ~/.bash_profile; cp /var/www/html/current/content/plugins/wp-dbmanager/index.php /var/www/html/current/shared/db_backups/index.php'")
 end
 
 def set(*args)
