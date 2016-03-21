@@ -3,8 +3,6 @@
 // Recommended way to include parent theme styles.
 //  (Please see http://codex.wordpress.org/Child_Themes#How_to_Create_a_Child_Theme)
 //  
-$document_root = '/var/www/html/current';
-
 
 function footer_title() {
     echo '<div style="text-align: center; border-top: 1px solid #ddd; padding-top: 20px;"><h1>CONTACT US</h1></div>';
@@ -97,7 +95,7 @@ function fo_ajax_get_product_item() {
 									</div>
 									<div class="right-col">
 										<div class="right-col-wrapper">';
-											$server_folder_path = $document_root;
+											$server_folder_path = '/var/www/html/current';
 											$website_folder_path = '/content/uploads/pdf_folders/';
 											$product_folder_path = $product->directory;
 											$product_files = scandir( $server_folder_path . $website_folder_path . $product_folder_path , 1  );
@@ -166,7 +164,7 @@ function insert_ajax_get_product_item_script() {
 function pre( $array ) { echo '<pre>'; print_r( $array ); echo '</pre>'; }
 
 function get_vendor( $vendor_id ) {
-	$vendor_json_data = json_decode( file_get_contents( $document_root . '/local-json/vendors.json' ) );
+	$vendor_json_data = json_decode( file_get_contents( '/var/www/html/current' . '/local-json/vendors.json' ) );
 	$vendor_array = NULL;
 	foreach( $vendor_json_data as $vendor ) {
 		if( (int)$vendor->id == (int)$vendor_id ) {
@@ -177,7 +175,7 @@ function get_vendor( $vendor_id ) {
 }
 
 function get_products( $product_ids ) {
-	$product_json_data = json_decode( file_get_contents( $document_root . '/local-json/products.json' ) );
+	$product_json_data = json_decode( file_get_contents( '/var/www/html/current' . '/local-json/products.json' ) );
 	$products_array = array();
 	foreach( $product_json_data as $product ) {
 		if( in_array( (int)$product->id , $product_ids ) ) {
@@ -189,8 +187,8 @@ function get_products( $product_ids ) {
 }
 
 function get_products_for_user( $email_address ) {
-	//$user_product_relation_json_data = json_decode( file_get_contents( $document_root . '/local-json/user_product_relation.json' ) );
-	$user_product_relation_json_data = json_decode( file_get_contents( $document_root . '/local-json/customer_users.json' ) );
+	//$user_product_relation_json_data = json_decode( file_get_contents( '/var/www/html/current' . '/local-json/user_product_relation.json' ) );
+	$user_product_relation_json_data = json_decode( file_get_contents( '/var/www/html/current' . '/local-json/customer_users.json' ) );
 	$allowerd_products_array = NULL;
 	foreach( $user_product_relation_json_data as $user_product_relation ) {
 		if( $user_product_relation->email == $email_address ) {
