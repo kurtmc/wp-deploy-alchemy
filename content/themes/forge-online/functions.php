@@ -74,16 +74,15 @@ function fo_ajax_get_product_item() {
 				if( !empty( $products_array ) ) {
 					foreach( $products_array as $product ) {
 						$product_vendor = get_vendor( $product->vendor_id );
-						$supplier_logo_file_name = $product_vendor->image_filename;
+						$supplier_logo_file_name = $product_vendor->vendor_image;
 						if( $supplier_logo_file_name ) { 
-							$supplier_logo_html = '<div class="product-supplier-logo"><img src="/wp-content/uploads/' . $supplier_logo_file_name . '" /></div>'; 
+							$supplier_logo_html = '<div class="product-supplier-logo"><img src="http://14.1.51.192/images/' . $supplier_logo_file_name . '" /></div>'; 
 						} else { 
 							$supplier_logo_html = ''; 
 						}
 						$html .= '
 							<div class="product-preview-item product-item-' . $product->id . '">
 								<div class="product-preview-item-wrapper">
-                <img src="http://14.1.51.192' . $product->vendor_image . '" style="float: right;">
 									' . $supplier_logo_html . '
 									<div class="product-title">' . $product->description . '</div>
 									<div class="product-desc">'. $product->new_description . '</div>
