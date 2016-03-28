@@ -83,6 +83,7 @@ function fo_ajax_get_product_item() {
 						$html .= '
 							<div class="product-preview-item product-item-' . $product->id . '">
 								<div class="product-preview-item-wrapper">
+                <img src="http://14.1.51.192' . $product->vendor_image . '" style="float: right;">
 									' . $supplier_logo_html . '
 									<div class="product-title">' . $product->description . '</div>
 									<div class="product-desc">'. $product->new_description . '</div>
