@@ -74,7 +74,7 @@ function fo_ajax_get_product_item() {
 				if( !empty( $products_array ) ) {
 					foreach( $products_array as $product ) {
 						$product_vendor = get_vendor( $product->vendor_id );
-						$supplier_logo_file_name = $product_vendor->vendor_image;
+						$supplier_logo_file_name = $product->vendor_image;
 						if( $supplier_logo_file_name ) { 
 							$supplier_logo_html = '<div class="product-supplier-logo"><img src="http://14.1.51.192/images/' . $supplier_logo_file_name . '" /></div>'; 
 						} else { 
