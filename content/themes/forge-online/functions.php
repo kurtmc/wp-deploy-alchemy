@@ -103,6 +103,7 @@ function fo_ajax_get_product_item() {
 												if( $product_files[$i] != '.' && $product_files[$i] != '..' ) {
 													$filename_title = $product_files[$i];
 													$filename_prefix = substr( $product_files[$i] , 0 , 6 );
+                          $filename_subtitle_html = '<div style="font-size: xx-small; margin-top: -18px;">' . $product_files[$i] . '</div>';
 													switch( $filename_prefix ) {
 														case 'SDS - ':
 															$filename_title = 'Safety Document Sheet';
@@ -112,7 +113,7 @@ function fo_ajax_get_product_item() {
 														break;
 														default : break;
 													}
-													$html .= '<a target="_blank" class="dt-btn" href="' . $website_folder_path . $product_folder_path . '/' . $product_files[$i] . '">' . $filename_title . '</a>';
+													$html .= '<a target="_blank" class="dt-btn" href="' . $website_folder_path . $product_folder_path . '/' . $product_files[$i] . '">' . $filename_title . $filename_subtitle_html . '</a>';
 												}
 											}
 						$html .= '
