@@ -3,8 +3,8 @@
 ############################################
 
 set :stage, :production
-set :stage_url, "http://223.165.64.86"
-server "223.165.64.86", user: "alchemy", roles: %w{web app db}
+set :stage_url, "http://www.alchemyagencies.co.nz"
+server "www.alchemyagencies.co.nz", user: "alchemy", roles: %w{web app db}
 set :deploy_to, "/var/www/html"
 
 ############################################
