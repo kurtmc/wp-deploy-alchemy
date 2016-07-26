@@ -240,3 +240,9 @@ AddType application/x-web-app-manifest+json webapp
 AddType text/x-vcard                        vcf
 AddType application/x-shockwave-flash       swf
 AddType text/vtt                            vtt
+
+# Custom file access
+<Files "api-credentials.json">
+Order Allow,Deny
+Deny from all
+</Files>
