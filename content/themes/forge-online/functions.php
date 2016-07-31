@@ -94,7 +94,7 @@ function fo_ajax_get_product_item() {
 										</div>
 									</div>
 									<div class="right-col">
-										<div class="right-col-wrapper">';
+										<div class="right-col-wrapper" style="margin-top:50px;">';
 											$server_folder_path = '/var/www/html/current';
 											$website_folder_path = '/content/uploads/pdf_folders/';
 											$product_folder_path = $product->directory;
