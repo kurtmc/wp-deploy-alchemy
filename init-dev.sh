@@ -22,6 +22,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 # Start sshd
 /usr/bin/ssh-keygen -A
+mkdir -p ~/.ssh
 ssh-keyscan localhost >> ~/.ssh/known_hosts
 yes "" | ssh-keygen -t rsa -b 4096 -N ""
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
@@ -35,6 +36,7 @@ bundle install
 /usr/libexec/mariadb-prepare-db-dir
 /usr/bin/mysqld_safe --basedir=/usr &
 
+# Need to sleep to give mariadb time to start
 sleep 5
 
 ROOT_PASS=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
@@ -67,8 +69,24 @@ FLUSH PRIVILEGES;" | mysql -u root -p${ROOT_PASS}
 # Setup Wordpress
 yes "" | bundle exec cap ${DEPLOY_ENV} wp:setup:remote
 
-# Deploy
-./deploy.rb ${DEPLOY_ENV}
+# Get data
+# bundle exec cap production db:backup
+cd /var/alchemy/db_backups
+LATEST=$(ls -Art | tail -n 1)
+sed -i 's/www\.alchemyagencies\.com/localhost/g' ${LATEST}
+sed -i 's/alchemyagencies\.com/localhost/g' ${LATEST}
+mysql -u root -p${ROOT_PASS} ${DB_NAME} < ${LATEST}
 
-# Fixed DocumentRoot
+# Update httpd.conf
 sed -i 's#DocumentRoot "/var/www/html"#DocumentRoot "/var/www/html/current"#g' /etc/httpd/conf/httpd.conf
+sed -i 's#Directory "/var/www/html"#Directory "/var/www/html/current"#g' /etc/httpd/conf/httpd.conf
+TMP="$(cat /etc/httpd/conf/httpd.conf | awk '/<Directory "\/var\/www\/html\/current">/,/AllowOverride None/{sub("None", "All",$0)}{print}')"
+echo "$TMP" > /etc/httpd/conf/httpd.conf
+
+# Get images
+cp -r -n /var/alchemy/content/uploads/* /var/www/html/shared/content/uploads/
+chmod -R 777 /var/www/html/shared/content/uploads
+
+# Deploy, this needs to happend last otherwise things get broken
+cd /var/alchemy
+./deploy.rb ${DEPLOY_ENV}
