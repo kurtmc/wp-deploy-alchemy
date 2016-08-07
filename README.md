@@ -1,6 +1,12 @@
 Development environment
 =======================
 
+You should only need to build the container once, re-running it should re deploy
+your code changes.
+
+You will need to get a database copy and asset copy from someone who has a copy
+first.
+
 ### Build
 ```
 docker build -t alchemy-external-docker .
