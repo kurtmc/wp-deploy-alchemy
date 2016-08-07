@@ -18,7 +18,7 @@ set :wp_localurl, "http://localhost:8080" # Your local environment URL
 ############################################
 
 set :application, "wp-deploy-alchemy"
-set :repo_url, "git@github.com:kurtmc/wp-deploy-alchemy.git"
+set :repo_url, "https://github.com/Alchemy-Agencies/wp-deploy-alchemy.git"
 set :scm, :git
 
 set :git_strategy, SubmoduleStrategy
