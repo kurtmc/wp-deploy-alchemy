@@ -1,20 +1,17 @@
 #!/bin/bash
 
-DEPLOY_ENV=staging
+unlink /var/www/html/current
+ln -s /var/alchemy /var/www/html/current
+
+cd /var/www/html/current
+ln -s /var/www/html/shared/.htaccess .htaccess
+ln -s /var/www/html/shared/wp-config.php wp-config.php
 
 /usr/bin/mysqld_safe --basedir=/usr &
 # Need to sleep to give mariadb time to start
-sleep 5
+sleep 10
 /usr/sbin/httpd
-
-# Start sshd
-/usr/sbin/sshd -D &
-
-# Deploy
-source /usr/local/rvm/scripts/rvm
-rvm --default use ${RUBY_VERSION}
-cd /var/alchemy
-./deploy.rb ${DEPLOY_ENV}
+sleep 10
 
 # Tail log
 tail -f /var/log/httpd/error_log
