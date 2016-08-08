@@ -16,6 +16,16 @@ function new_excerpt_more( $more ) {
 }
 add_filter('excerpt_more', 'new_excerpt_more');
 
+/**
+  *  * Disable admin bar on the frontend of your website
+  *   * for subscribers.
+  *    */
+function themeblvd_disable_admin_bar() { 
+    if ( ! current_user_can('edit_posts') ) {
+          add_filter('show_admin_bar', '__return_false'); 
+            }
+}
+add_action( 'after_setup_theme', 'themeblvd_disable_admin_bar' );
 
 
 function shortcode_products( $atts ) {
