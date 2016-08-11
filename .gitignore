@@ -39,3 +39,6 @@ api-credentials.json
 
 # Vim
 *.swp
+
+site-configuration.json
+site-configuration.json.disable
