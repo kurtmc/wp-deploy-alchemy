@@ -1,0 +1,5 @@
+{
+	"email": "api@user.com",
+	"password": "password",
+	"webservice_address": "http://172.17.0.2:3000"
+}
