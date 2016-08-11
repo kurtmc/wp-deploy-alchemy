@@ -4,6 +4,9 @@
 //  (Please see http://codex.wordpress.org/Child_Themes#How_to_Create_a_Child_Theme)
 //  
 
+// Get site configuration
+require $_SERVER['DOCUMENT_ROOT'] . "/configuration.php";
+
 function footer_title() {
     echo '<div style="text-align: center; border-top: 1px solid #ddd; padding-top: 20px;"><h1>CONTACT US</h1></div>';
 }
@@ -16,6 +19,16 @@ function new_excerpt_more( $more ) {
 }
 add_filter('excerpt_more', 'new_excerpt_more');
 
+/**
+  *  * Disable admin bar on the frontend of your website
+  *   * for subscribers.
+  *    */
+function themeblvd_disable_admin_bar() { 
+    if ( ! current_user_can('edit_posts') ) {
+          add_filter('show_admin_bar', '__return_false'); 
+            }
+}
+add_action( 'after_setup_theme', 'themeblvd_disable_admin_bar' );
 
 
 function shortcode_products( $atts ) {
@@ -63,6 +76,7 @@ add_shortcode( 'products', 'shortcode_products' );
 add_action( 'wp_ajax_get_product_item' , 'fo_ajax_get_product_item' );
 add_action( 'wp_ajax_nopriv_get_product_item' , 'fo_ajax_get_product_item' );
 function fo_ajax_get_product_item() {
+  $configuration = getConfiguration();
 	if( isset( $_POST['product_id'] ) && is_numeric( $_POST['product_id'] ) ) { $product_id = $_POST['product_id']; } else { $product_id = 0; }
 	$html = '';
 	if( is_user_logged_in() ) {
@@ -76,7 +90,7 @@ function fo_ajax_get_product_item() {
 						$product_vendor = get_vendor( $product->vendor_id );
 						$supplier_logo_file_name = $product->vendor_image;
 						if( $supplier_logo_file_name ) { 
-							$supplier_logo_html = '<div class="product-supplier-logo"><img src="http://14.1.51.192/images/' . $supplier_logo_file_name . '" /></div>'; 
+							$supplier_logo_html = '<div class="product-supplier-logo"><img src="' . $configuration['webservice_address'] . '/images/' . $supplier_logo_file_name . '" /></div>'; 
 						} else { 
 							$supplier_logo_html = ''; 
 						}

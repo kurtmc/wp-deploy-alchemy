@@ -36,3 +36,6 @@ local-json/
 # Credentials #
 ###################
 api-credentials.json
+
+# Vim
+*.swp

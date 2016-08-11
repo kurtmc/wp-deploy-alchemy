@@ -14,5 +14,5 @@ docker build -t alchemy-external-docker .
 
 ### Run
 ```
-docker run -p 80:80 -v $(pwd):/var/alchemy -i -t alchemy-external-docker /var/alchemy/start.sh
+docker run --name=alchemy-external --rm -p 80:80 --expose=3000 -v $(pwd):/var/alchemy -i -t alchemy-external-docker /var/alchemy/start.sh
 ```

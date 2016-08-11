@@ -1,13 +1,16 @@
 <?php
 
-$credentials_string = file_get_contents("api-credentials.json");
-$credentials_json = json_decode($credentials_string, true);
-$document_root = '/var/www/html/current';
-echo 'Document root:', $document_root, PHP_EOL;
 
+// Get site configuration
+require "configuration.php";
+$configuration = getConfiguration();
 
 
 require_once( 'wordpress/wp-load.php' );
+
+$document_root = '/var/www/html/current';
+
+echo $document_root . PHP_EOL;
 
 
 //function pre( $array ) { echo '<pre>'; print_r( $array ); echo '</pre>'; }
@@ -43,10 +46,10 @@ function is_valid_email_address( $email_address ) {
 
 $ch_url_prefix = 'customer_users';
 
-$ch_url = 'http://14.1.51.192/api/' . $ch_url_prefix;
+$ch_url = $configuration['webservice_address'] . '/api/' . $ch_url_prefix;
 $ch_init = curl_init();
-$ch_email = $credentials['email'];
-$ch_password = $credentials['password'];
+$ch_email = $configuration['email'];
+$ch_password = $configuration['password'];
 $ch_post_json = '{"user":{"email":"' . $ch_email . '","password":"' . $ch_password . '"},"csv":"' . $ch_csv . '","product_relation":"' . $ch_product_relation . '"}';
 $ch_http_header = array( 'Content-Type: application/json' , 'Accept: application/json' );
 
