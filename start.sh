@@ -4,6 +4,8 @@ unlink /var/www/html/current
 ln -s /var/alchemy /var/www/html/current
 
 cd /var/www/html/current
+unlink .htaccess
+unlink wp-config.php
 ln -s /var/www/html/shared/.htaccess .htaccess
 ln -s /var/www/html/shared/wp-config.php wp-config.php
 
