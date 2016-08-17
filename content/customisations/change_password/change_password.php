@@ -1,11 +1,12 @@
 <?php
 
+require_once($_SERVER['DOCUMENT_ROOT'] . '/wordpress/wp-load.php');
+//
 // Get site configuration
-require_once("configuration.php");
-require_once("common.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/configuration.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/common.php");
 $configuration = getConfiguration();
 
-require_once( 'wordpress/wp-load.php' );
 
 function Redirect($url, $permanent = false)
 {
@@ -24,11 +25,14 @@ $confirm = $_POST['confirm'];
 $res = GetEndpoint($configuration, '/api/customer_users/email', array('email' => $current_user->get('user_login')));
 
 if ($current == $res['password']) {
+  // Change password on internal site
   $res = PutEndpoint($configuration, '/api/customer_users/' . $res['id'], array('password' => $password));
+  // Change password on external site
+  wp_set_password($password, $current_user->ID); 
+
   Redirect(constant('WP_HOME') . '/customer-login/', false);
 } else {
   echo "You entered your current password incorrectly, please go back and try again";
 }
-
 
 ?> 
