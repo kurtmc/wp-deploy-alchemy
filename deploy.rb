@@ -15,6 +15,12 @@ end
 def server(address, *args)
     user = *args[0][:user]
     user = user[0]
+
+    filename = 'site-configuration.json'
+    if File.file?(filename)
+        exec_shell("scp #{filename} root@#{address}:/var/www/html/current/")
+    end
+
     exec_shell("ssh #{user}@#{address} 'source ~/.bash_profile; cd /var/www/html/current; ./pull-json.rb'")
     exec_shell("ssh #{user}@#{address} 'source ~/.bash_profile; cd /var/www/html/current; php api.php'")
     exec_shell("scp cron-jobs/* root@#{address}:/etc/cron.hourly/")

@@ -6,10 +6,11 @@ require 'fileutils'
 
 
 def pull(endpoint)
-    if File.file?('site-configuration.json')
-        file = File.read('site-configuration.json')
+    filename = 'site-configuration.json'
+    if File.file?(filename)
+        file = File.read(filename)
     else
-        file = File.read('site-configuration.json.example')
+        file = File.read("#(filename).example")
     end
     conf = JSON.parse(file)
     uri = URI("#{conf['webservice_address']}/api/#{endpoint}")

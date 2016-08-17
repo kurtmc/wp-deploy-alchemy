@@ -21,7 +21,7 @@ function php(url, data) {
 
 function validateForm() {
 	// Check if logged in
-	var loggedIn = php("../../content/customisations/change_password/check_login.php")["valid"];
+	var loggedIn = php("../../customisations/change_password/check_login.php")["valid"];
 	console.log(loggedIn);
 	if (!loggedIn) { // If not logged in redirect to login page
 		window.location = "..";
@@ -31,7 +31,7 @@ function validateForm() {
 
 	// Check password is correct
 	var cur = document.forms["myForm"]["current"].value;
-	var valid = php("../../content/customisations/change_password/check_password.php", {"password": cur})["valid"];
+	var valid = php("../../customisations/change_password/check_password.php", {"password": cur})["valid"];
 	if (!valid) {
 		alert("Current password is not correct! Please re-enter your current password and try again.");
 		return false;
