@@ -253,7 +253,18 @@ function wppb_front_end_login( $atts ){
 		}
 		$redirect_after_logout_url = apply_filters( 'wppb_after_logout_redirect_url', $redirect_after_logout_url );
 		$logout_url = '<a href="'.wp_logout_url( $redirect_after_logout_url ).'" class="wppb-logout-url" title="'.__( 'Log out of this account', 'profile-builder' ).'">'. __( 'Log out', 'profile-builder').' &raquo;</a>';
-		$logged_in_message .= sprintf(__( 'You are currently logged in as %1$s. %2$s', 'profile-builder' ), $display_name, $logout_url );
+    // A hack to add a personal message to the logged in screen
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/configuration.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/common.php");
+    $configuration = getConfiguration();
+    $current_user = wp_get_current_user();
+    $res = GetEndpoint($configuration, '/api/customer_users/email', array('email' => $current_user->get('user_login')));
+
+    if ($res['name'] == NULL || $res['company_name'] == NULL) {
+      $logged_in_message .= sprintf(__( 'You are currently logged in as %1$s. %2$s', 'profile-builder' ), $display_name, $logout_url );
+    } else {
+		  $logged_in_message .= sprintf(__( 'Welcome %3$s from %4$s to the secure login section of Alchemy Agency\'s website. %2$s', 'profile-builder' ), $display_name, $logout_url, $res['name'], $res['company_name'] );
+    }
 
         $logged_in_message .= '</p><!-- .wppb-alert-->';
 		
