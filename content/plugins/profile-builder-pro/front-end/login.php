@@ -259,7 +259,7 @@ function wppb_front_end_login( $atts ){
     $configuration = getConfiguration();
     $current_user = wp_get_current_user();
     $res = GetEndpoint($configuration, '/api/customer_users/email', array('email' => $current_user->get('user_login')));
-    $technical_difficulties = 'If you experience any technical difficulties please email with details to <a href="mailto:admin@alchemyagencies.co.nzSubject=Tecnical%20difficulties">admin@alchemyagencies.co.nz</a>';
+    $technical_difficulties = 'If you experience any technical difficulties please email with details to <a href="mailto:admin@alchemyagencies.co.nz?Subject=Tecnical%20difficulties">admin@alchemyagencies.co.nz</a>';
 
     if ($res['name'] == NULL || $res['company_name'] == NULL) {
       $logged_in_message .= sprintf(__( 'You are currently logged in as %1$s. %2$s<br>%3$s', 'profile-builder' ), $display_name, $logout_url, $technical_difficulties );
