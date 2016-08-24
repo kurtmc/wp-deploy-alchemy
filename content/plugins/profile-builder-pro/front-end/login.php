@@ -259,11 +259,12 @@ function wppb_front_end_login( $atts ){
     $configuration = getConfiguration();
     $current_user = wp_get_current_user();
     $res = GetEndpoint($configuration, '/api/customer_users/email', array('email' => $current_user->get('user_login')));
+    $technical_difficulties = 'If you experience any technical difficulties please email with details to <a href="mailto:admin@alchemyagencies.co.nzSubject=Tecnical%20difficulties">admin@alchemyagencies.co.nz</a>';
 
     if ($res['name'] == NULL || $res['company_name'] == NULL) {
-      $logged_in_message .= sprintf(__( 'You are currently logged in as %1$s. %2$s', 'profile-builder' ), $display_name, $logout_url );
+      $logged_in_message .= sprintf(__( 'You are currently logged in as %1$s. %2$s<br>%3$s', 'profile-builder' ), $display_name, $logout_url, $technical_difficulties );
     } else {
-		  $logged_in_message .= sprintf(__( 'Welcome %3$s from %4$s to the secure login section of Alchemy Agency\'s website. %2$s', 'profile-builder' ), $display_name, $logout_url, $res['name'], $res['company_name'] );
+		  $logged_in_message .= sprintf(__( 'Welcome %3$s from %4$s to the secure login section of Alchemy Agency\'s website. %2$s<br>%5$s', 'profile-builder' ), $display_name, $logout_url, $res['name'], $res['company_name'], $technical_difficulties );
     }
 
         $logged_in_message .= '</p><!-- .wppb-alert-->';
