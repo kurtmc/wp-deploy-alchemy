@@ -10,7 +10,7 @@ def pull(endpoint)
     if File.file?(filename)
         file = File.read(filename)
     else
-        file = File.read("#(filename).example")
+        file = File.read("#{filename}.example")
     end
     conf = JSON.parse(file)
     uri = URI("#{conf['webservice_address']}/api/#{endpoint}")
