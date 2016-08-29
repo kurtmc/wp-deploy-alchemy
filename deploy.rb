@@ -18,7 +18,7 @@ def server(address, *args)
 
     filename = 'site-configuration.json'
     if File.file?(filename)
-        exec_shell("scp #{filename} root@#{address}:/var/www/html/current/")
+        exec_shell("scp #{filename} #{user}@#{address}:/var/www/html/current/")
     end
 
     exec_shell("ssh #{user}@#{address} 'source ~/.bash_profile; cd /var/www/html/current; ./pull-json.rb'")
