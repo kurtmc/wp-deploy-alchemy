@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/usr/bin/s3cmd sync /var/www/html/current/shared/db_backups s3://alchemy-external-backup/
+/usr/bin/s3cmd sync /var/www/html/current/content/uploads s3://alchemy-external-backup/
