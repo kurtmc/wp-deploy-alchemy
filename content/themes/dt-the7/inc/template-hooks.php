@@ -41,12 +41,16 @@ if ( ! function_exists( 'presscore_setup_floating_menu' ) ) :
 			$h = ( empty( $logo[2] ) ? '' : $logo[2] );
 		}
 		?>
+
+
 		<script type="text/javascript">
+
 			dtGlobals.logoEnabled = <?php echo absint( $show_logo ); ?>;
 			dtGlobals.logoURL = '<?php echo esc_js( $logo_src ); ?>';
 			dtGlobals.logoW = '<?php echo absint( $w ); ?>';
 			dtGlobals.logoH = '<?php echo absint( $h ); ?>';
 			smartMenu = <?php echo absint( $show_menu ); ?>;
+			
 		</script>
 		<?php
 	}

@@ -61,6 +61,17 @@ jQuery( function(){
     }
 });
 
+$('.agree_button').click(function() {
+
+ $.ajax({
+  type: "POST",
+  url: "some.php",
+  data: { name: "John" }
+}).done(function( msg ) {
+  alert( "Data Saved: " + msg );
+});    
+
+    });
 
 /* show hide fields based on selected options */
 jQuery( function(){
