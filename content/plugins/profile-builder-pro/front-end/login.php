@@ -265,24 +265,47 @@ function wppb_front_end_login( $atts ){
 	$obj = (Array)$conditions[0];
     $toc_value = $obj['value'];
 	$modal_popup = '<!-- The Modal -->
-				<div id="myModal" class="modal">
+				<div id="myModal" class="modal terms_modal">
 
 				  <!-- Modal content -->
 				  <div class="modal-content">
 				  	<h3>Terms of Use</h3>
 				    <p style="max-height:20vh; overflow-y:scroll">'. $toc_value.'</p>
-				    <button class="agree_button">I Agree to the terms of use</button>
+				    <button onclick="closeOnly()" >Cancel</button>
+				    <button onclick="myFunction()" class="agree_button">I Agree to the terms of use</button>
 				  </div>
 
 				</div>
+				<script>
+				function closeOnly() {
+					jQuery(\'#myModal\').css(\'display\',\'none\');
+				}
+				function myFunction() {
+					 jQuery(\'#myModal\').css(\'display\',\'none\');
+   					 jQuery.ajax({
+							url: \'../../customisations/terms_of_use/accept_terms.php\',
+							data: \'data\',
+							type: "POST",
+							async: false, // this makes the ajax-call blocking
+							success: function (response) {
+								res = response;
+							},
+							error: function (response, error) {
+								console.log(response);
+								console.log(error);
+								console.log("Failed because: " + error);
+							}
+
+						});
+				}
+				</script>
 				'; 
 
-	
-	if ($res['terms_of_use'] == NULL || $res['terms_of_use'] == false)
+
+	if (count($res) != 0 && ($res['terms_of_use'] == NULL || $res['terms_of_use'] == false))
 	{
 		echo $modal_popup;
 	}
-
 
 
     if ($res['name'] == NULL || $res['company_name'] == NULL) {
