@@ -301,12 +301,10 @@ function wppb_front_end_login( $atts ){
 				</script>
 				'; 
 
-
 	if (count($res) != 0 && ($res['terms_of_use'] == NULL || $res['terms_of_use'] == false))
 	{
 		echo $modal_popup;
 	}
-
 
     if ($res['name'] == NULL || $res['company_name'] == NULL) {
       $logged_in_message .= sprintf(__( 'You are currently logged in as %1$s. %2$s<br>%3$s', 'profile-builder' ), $display_name, $logout_url, $technical_difficulties );
@@ -317,7 +315,5 @@ function wppb_front_end_login( $atts ){
         $logged_in_message .= '</p><!-- .wppb-alert-->';
 		
 		return apply_filters( 'wppb_login_message', $logged_in_message, $wppb_user->ID, $display_name );
-		
 	}
-
 }
