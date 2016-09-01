@@ -260,6 +260,51 @@ function wppb_front_end_login( $atts ){
     $current_user = wp_get_current_user();
     $res = GetEndpoint($configuration, '/api/customer_users/email', array('email' => $current_user->get('user_login')));
     $technical_difficulties = 'If you experience any technical difficulties please email with details to <a href="mailto:admin@alchemyagencies.co.nz?Subject=Tecnical%20difficulties">admin@alchemyagencies.co.nz</a>';
+    $conditions = GetEndpoint($configuration, '/api/config_table', array('email' => $current_user->get('user_login')));
+	
+	$obj = (Array)$conditions[0];
+    $toc_value = $obj['value'];
+	$modal_popup = '<!-- The Modal -->
+				<div id="myModal" class="modal terms_modal">
+
+				  <!-- Modal content -->
+				  <div class="modal-content">
+				  	<h3>Terms of Use</h3>
+				    <p style="max-height:20vh; overflow-y:scroll">'. $toc_value.'</p>
+				    <button onclick="closeOnly()" >Cancel</button>
+				    <button onclick="myFunction()" class="agree_button">I Agree to the terms of use</button>
+				  </div>
+
+				</div>
+				<script>
+				function closeOnly() {
+					jQuery(\'#myModal\').css(\'display\',\'none\');
+				}
+				function myFunction() {
+					 jQuery(\'#myModal\').css(\'display\',\'none\');
+   					 jQuery.ajax({
+							url: \'../../customisations/terms_of_use/accept_terms.php\',
+							data: \'data\',
+							type: "POST",
+							async: false, // this makes the ajax-call blocking
+							success: function (response) {
+								res = response;
+							},
+							error: function (response, error) {
+								console.log(response);
+								console.log(error);
+								console.log("Failed because: " + error);
+							}
+
+						});
+				}
+				</script>
+				'; 
+
+	if (count($res) != 0 && ($res['terms_of_use'] == NULL || $res['terms_of_use'] == false))
+	{
+		echo $modal_popup;
+	}
 
     if ($res['name'] == NULL || $res['company_name'] == NULL) {
       $logged_in_message .= sprintf(__( 'You are currently logged in as %1$s. %2$s<br>%3$s', 'profile-builder' ), $display_name, $logout_url, $technical_difficulties );
@@ -270,6 +315,5 @@ function wppb_front_end_login( $atts ){
         $logged_in_message .= '</p><!-- .wppb-alert-->';
 		
 		return apply_filters( 'wppb_login_message', $logged_in_message, $wppb_user->ID, $display_name );
-		
 	}
 }
